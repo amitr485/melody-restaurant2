@@ -378,7 +378,6 @@
   </ul>
 </nav>
 
-<!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-ornament">מסעדה רוסית אותנטית</div>
   <h1>
@@ -393,7 +392,6 @@
   <div class="scroll-indicator">גללו למטה</div>
 </section>
 
-<!-- ABOUT -->
 <section class="about" id="about">
   <div class="section-inner">
     <div class="fade-in">
@@ -435,7 +433,6 @@
   </div>
 </section>
 
-<!-- MENU -->
 <section class="menu" id="menu">
   <div class="section-inner">
     <div class="fade-in">
@@ -568,7 +565,6 @@
   </div>
 </section>
 
-<!-- EXPERIENCE -->
 <section class="experience" id="experience">
   <div class="section-inner">
     <div class="fade-in">
@@ -610,7 +606,6 @@
   </div>
 </section>
 
-<!-- REVIEWS -->
 <section class="reviews" id="reviews">
   <div class="section-inner">
     <div class="fade-in">
@@ -652,7 +647,6 @@
   </div>
 </section>
 
-<!-- INFO -->
 <section class="info" id="info">
   <div class="section-inner">
     <div class="fade-in">
@@ -691,7 +685,6 @@
   </div>
 </section>
 
-<!-- RESERVATION -->
 <section class="reservation" id="reservation">
   <div class="section-inner" style="position:relative">
     <p class="section-label fade-in">הזמינו שולחן</p>
