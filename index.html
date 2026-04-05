@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>נכון לעכשיו — מסעדה רוסית</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Heebo:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C9A96E;
+    --gold-light: #E8D5A8;
+    --dark: #0E0B08;
+    --dark2: #1A1410;
+    --dark3: #241E17;
+    --cream: #F5EDD8;
+    --cream-muted: #BFB49A;
+    --red-accent: #8B2A2A;
+    --text-body: #D4C9A8;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--cream);
+    font-family: 'Heebo', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 4rem;
+    background: linear-gradient(to bottom, rgba(14,11,8,0.98), transparent);
+    backdrop-filter: blur(2px);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.02em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--cream-muted); text-decoration: none;
+    font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 6rem 2rem 4rem;
+    background: var(--dark);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 30%, rgba(201,169,110,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(139,42,42,0.06) 0%, transparent 60%);
+  }
+  .hero-ornament {
+    font-size: 0.75rem; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 1.5rem;
+  }
+  .hero-ornament::before, .hero-ornament::after {
+    content: ''; width: 60px; height: 1px; background: var(--gold); opacity: 0.5;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(4rem, 10vw, 8rem);
+    font-weight: 700; line-height: 0.9;
+    color: var(--cream);
+    margin-bottom: 0.3em;
+    position: relative;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--gold);
+    display: block; font-size: 0.65em;
+  }
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-style: italic;
+    color: var(--cream-muted); margin: 1.5rem 0 3rem;
+    letter-spacing: 0.03em;
+  }
+  .hero-cta {
+    display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center;
+  }
+  .btn {
+    padding: 0.9rem 2.5rem;
+    font-family: 'Heebo', sans-serif;
+    font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+    cursor: pointer; text-decoration: none; transition: all 0.3s;
+    display: inline-block;
+  }
+  .btn-primary {
+    background: var(--gold); color: var(--dark);
+    border: 1px solid var(--gold);
+    font-weight: 500;
+  }
+  .btn-primary:hover { background: var(--gold-light); border-color: var(--gold-light); }
+  .btn-outline {
+    background: transparent; color: var(--cream);
+    border: 1px solid rgba(245,237,216,0.3);
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  .scroll-indicator {
+    position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: var(--cream-muted); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  .scroll-indicator::after {
+    content: ''; width: 1px; height: 40px; background: var(--gold); opacity: 0.4;
+  }
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+  /* DIVIDER */
+  .divider {
+    display: flex; align-items: center; justify-content: center;
+    gap: 1.5rem; padding: 2rem 0;
+  }
+  .divider-line { flex: 1; height: 1px; background: rgba(201,169,110,0.2); max-width: 200px; }
+  .divider-icon { color: var(--gold); font-size: 1rem; }
+
+  /* SECTION BASE */
+  section { padding: 6rem 2rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.7rem; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 400; line-height: 1.15;
+    color: var(--cream);
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  /* ABOUT */
+  .about { background: var(--dark2); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center; margin-top: 4rem;
+  }
+  .about-text p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; line-height: 1.85;
+    color: var(--text-body); margin-bottom: 1.5rem;
+  }
+  .about-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+  }
+  .stat {
+    border-right: 1px solid rgba(201,169,110,0.2);
+    padding-right: 1.5rem; text-align: right;
+  }
+  .stat:nth-child(even) { border-right: none; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem; color: var(--gold); line-height: 1;
+  }
+  .stat-label { font-size: 0.75rem; letter-spacing: 0.1em; color: var(--cream-muted); margin-top: 0.4rem; }
+
+  /* MENU */
+  .menu { background: var(--dark); }
+  .menu-tabs {
+    display: flex; gap: 0; margin: 3rem 0 2.5rem;
+    border-bottom: 1px solid rgba(201,169,110,0.15);
+  }
+  .tab {
+    padding: 1rem 2rem; cursor: pointer;
+    font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--cream-muted); background: transparent; border: none;
+    position: relative; transition: color 0.3s;
+    font-family: 'Heebo', sans-serif;
+  }
+  .tab::after {
+    content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+    height: 1px; background: var(--gold);
+    transform: scaleX(0); transition: transform 0.3s;
+  }
+  .tab.active { color: var(--gold); }
+  .tab.active::after { transform: scaleX(1); }
+  .tab:hover { color: var(--cream); }
+
+  .menu-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5px; background: rgba(201,169,110,0.08);
+  }
+  .menu-item {
+    background: var(--dark);
+    padding: 2rem;
+    transition: background 0.3s;
+  }
+  .menu-item:hover { background: var(--dark3); }
+  .menu-item-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+  .menu-item-desc {
+    font-size: 0.85rem; color: var(--cream-muted);
+    line-height: 1.6; margin-bottom: 1rem;
+  }
+  .menu-item-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; color: var(--gold);
+  }
+
+  /* EXPERIENCE */
+  .experience { background: var(--dark2); }
+  .exp-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2rem; margin-top: 4rem;
+  }
+  .exp-card {
+    padding: 2.5rem 2rem;
+    border: 1px solid rgba(201,169,110,0.12);
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .exp-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 1px;
+    background: var(--gold); transform: scaleX(0);
+    transition: transform 0.4s;
+  }
+  .exp-card:hover { border-color: rgba(201,169,110,0.3); }
+  .exp-card:hover::before { transform: scaleX(1); }
+  .exp-icon {
+    font-size: 2rem; margin-bottom: 1.5rem; display: block;
+  }
+  .exp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; color: var(--cream); margin-bottom: 0.8rem;
+  }
+  .exp-desc { font-size: 0.9rem; color: var(--cream-muted); line-height: 1.7; }
+
+  /* REVIEWS */
+  .reviews { background: var(--dark); }
+  .reviews-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .review-card {
+    padding: 2rem;
+    border: 1px solid rgba(201,169,110,0.1);
+    background: var(--dark2);
+    position: relative;
+  }
+  .review-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; color: var(--gold); opacity: 0.3;
+    position: absolute; top: 0.5rem; right: 1.5rem;
+    line-height: 1;
+  }
+  .review-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; font-style: italic;
+    color: var(--text-body); line-height: 1.7;
+    margin-bottom: 1.5rem; padding-top: 0.5rem;
+  }
+  .review-stars { color: var(--gold); font-size: 0.8rem; margin-bottom: 0.8rem; letter-spacing: 0.2em; }
+  .review-author { font-size: 0.85rem; color: var(--cream-muted); }
+  .review-author strong { color: var(--cream); font-weight: 500; }
+
+  /* INFO */
+  .info { background: var(--dark3); }
+  .info-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 4rem; margin-top: 3rem;
+  }
+  .info-col h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; color: var(--gold);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(201,169,110,0.2);
+  }
+  .info-col p, .info-col li {
+    font-size: 0.9rem; color: var(--cream-muted);
+    line-height: 2; list-style: none;
+  }
+  .info-col li::before {
+    content: '✦'; color: var(--gold); margin-left: 0.5rem; font-size: 0.5rem;
+    vertical-align: middle;
+  }
+
+  /* RESERVATION */
+  .reservation {
+    background: var(--dark);
+    text-align: center; padding: 8rem 2rem;
+    position: relative; overflow: hidden;
+  }
+  .reservation::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(201,169,110,0.05) 0%, transparent 70%);
+  }
+  .reservation .section-title { margin-bottom: 1.5rem; }
+  .reservation p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-style: italic;
+    color: var(--cream-muted); margin-bottom: 3rem;
+  }
+  .res-form {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    max-width: 700px; margin: 0 auto;
+  }
+  .res-form input, .res-form select {
+    padding: 1rem 1.5rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,169,110,0.2);
+    color: var(--cream);
+    font-family: 'Heebo', sans-serif; font-size: 0.85rem;
+    min-width: 180px; outline: none; transition: border-color 0.3s;
+    -webkit-appearance: none;
+  }
+  .res-form input::placeholder { color: var(--cream-muted); }
+  .res-form input:focus, .res-form select:focus { border-color: var(--gold); }
+  .res-form select option { background: var(--dark); }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark2);
+    border-top: 1px solid rgba(201,169,110,0.1);
+    padding: 3rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 2rem;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; color: var(--gold);
+  }
+  .footer-copy { font-size: 0.75rem; color: var(--cream-muted); }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .about-grid, .exp-grid, .info-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .about-stats { grid-template-columns: 1fr 1fr; }
+    footer { padding: 2rem 1.5rem; text-align: center; justify-content: center; }
+    .hero { padding: 5rem 1.5rem 3rem; }
+  }
+
+  /* ANIMATIONS */
+  .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">נכון לעכשיו</div>
+  <ul class="nav-links">
+    <li><a href="#about">אודות</a></li>
+    <li><a href="#menu">תפריט</a></li>
+    <li><a href="#experience">חוויה</a></li>
+    <li><a href="#reviews">ביקורות</a></li>
+    <li><a href="#info">מידע</a></li>
+    <li><a href="#reservation">הזמנת מקום</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-ornament">מסעדה רוסית אותנטית</div>
+  <h1>
+    נכון
+    <em>לעכשיו</em>
+  </h1>
+  <p class="hero-sub">מטבח רוסי–סובייטי קלאסי · אווירה אינטימית · חוויה בלתי נשכחת</p>
+  <div class="hero-cta">
+    <a href="#reservation" class="btn btn-primary">הזמינו מקום</a>
+    <a href="#menu" class="btn btn-outline">לתפריט המלא</a>
+  </div>
+  <div class="scroll-indicator">גללו למטה</div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="fade-in">
+      <p class="section-label">הסיפור שלנו</p>
+      <h2 class="section-title">מסורת, טעם<br><em>ונוסטלגיה</em></h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text fade-in">
+        <p>
+          ב"נכון לעכשיו" אנחנו מאמינים שאוכל טוב הוא זיכרון שחוזר על עצמו. 
+          המטבח שלנו שואב השראה מהמסורת הרוסית–סובייטית העשירה — מנות שמגיעות ישירות 
+          מהלב, עם אהבה, זמן וחומרי גלם איכותיים.
+        </p>
+        <p>
+          אוכל ביתי, אמיתי, מוגש בסביבה אינטימית וחמה. 
+          מהרגע שתשבו — סלטים ונשנושים על השולחן, מוסיקה טובה, ואווירה שעושה חשק להישאר.
+        </p>
+        <a href="#menu" class="btn btn-outline" style="margin-top:1rem">גלו את התפריט</a>
+      </div>
+      <div class="about-stats fade-in">
+        <div class="stat">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">מנות ביתיות אותנטיות</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">⭐</div>
+          <div class="stat-label">ביקורות מצוינות</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">✦</div>
+          <div class="stat-label">אווירה אינטימית וחמה</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">∞</div>
+          <div class="stat-label">חוויות שמחזירות לשורשים</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="section-inner">
+    <div class="fade-in">
+      <p class="section-label">התפריט שלנו</p>
+      <h2 class="section-title">קלאסיקות <em>רוסיות</em></h2>
+    </div>
+    <div class="menu-tabs">
+      <button class="tab active" onclick="showTab(this, 'starters')">פתיחות</button>
+      <button class="tab" onclick="showTab(this, 'mains')">עיקריות</button>
+      <button class="tab" onclick="showTab(this, 'drinks')">בר ומשקאות</button>
+      <button class="tab" onclick="showTab(this, 'desserts')">קינוחים</button>
+    </div>
+
+    <div id="starters" class="menu-grid">
+      <div class="menu-item">
+        <div class="menu-item-name">חמוצים ביתיים</div>
+        <div class="menu-item-desc">מבחר כבושים בסגנון רוסי מסורתי — מלפפונים, כרוב, ועגבניות</div>
+        <div class="menu-item-price">₪38</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-name">דרוּני עם שמנת חמוצה</div>
+        <div class="menu-item-desc">לביבות תפוחי אדמה קריספיות, מוגשות עם שמנת חמוצה טרייה</div>
+        <div class="menu-item-price">₪45</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-name">הרינג תחת פרווה</div>
+        <div class="menu-item-desc">שכבות הרינג, תפוחי אדמה, גזר, ביצים ומיונז — קלאסיקה אדומה</div>
+        <div class="menu-item-price">₪52</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-name">בורש אדום</div>
+        <div class="menu-item-desc">מרק סלק עשיר ומחמם עם כרוב, ירקות שורש ושמנת חמוצה</div>
+        <div class="menu-item-price">₪48</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-name">סלט אוליבייה</div>
+        <div class="menu-item-desc">הסלט הרוסי האייקוני עם ירקות, ביצים ורוטב מיונז קלאסי</div>
+        <div class="menu-item-price">₪42</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-name">פירושקי מהתנור</div>
+        <div class="menu-item-desc">בצק אפוי ממולא בשר או כרוב וביצה — כמו אצל הסבתא</div>
+        <div class="menu-item-price">₪44</div>
+      </div>
+    </div>
+
+    <div id="mains" class="menu-grid" style="display:none">
+      <div class="menu-item">
+        <div class="menu-item-name">שישליק חזיר על הגחלים</div>
+        <div class="menu-item-desc">נתח חזיר בכבישה לילית, צלוי על אש פחמים, מוגש עם ירקות צלויים</div>
+        <div class="menu-item-price">₪89</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-name">בקר סטרוגנוף</div>
+        <div class="menu-item-desc">פסי בקר רכים ברוטב שמנת ופטריות, עם פסטה או אורז</div>
+        <div class="menu-item-price">₪95</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-name">פלמני בצק ממולא</div>
+        <div class="menu-item-desc">כיסוני בצק ממולאים בשר טרי, מבושלים ומוגשים בחמאה ושמנת</div>
+        <div class="menu-item-price">₪79</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-name">דג בשמנת</div>
+        <div class="menu-item-desc">דג לבן אפוי ברוטב שמנת דיל ולימון, עם ירקות עונה</div>
+        <div class="menu-item-price">₪86</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-name">כרוב ממולא</div>
+        <div class="menu-item-desc">עלי כרוב ממולאים בשר ואורז, מבושלים ברוטב עגבניות</div>
+        <div class="menu-item-price">₪75</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-name">עוף קייב</div>
+        <div class="menu-item-desc">חזה עוף פרוס ממולא חמאת עשבים, פריך מבחוץ ועסיסי מבפנים</div>
+        <div class="menu-item-price">₪82</div>
+      </div>
+    </div>
+
+    <div id="drinks" class="menu-grid" style="display:none">
+      <div class="menu-item">
+        <div class="menu-item-name">וודקה פרמיום</div>
+        <div class="menu-item-desc">מבחר וודקות רוסיות אותנטיות — להזמנה לשוט, לצלוחית קרה או לקוקטייל</div>
+        <div class="menu-item-price">₪25–₪45</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-name">בירות מיובאות</div>
+        <div class="menu-item-desc">בירות מרכז ומזרח אירופה, מהחבית ובבקבוק</div>
+        <div class="menu-item-price">₪32</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-name">יינות נבחרים</div>
+        <div class="menu-item-desc">רשימת יינות מדוקדקת — אדום, לבן ורוזה לפי העונה</div>
+        <div class="menu-item-price">₪38–₪55</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-name">קוקטיילים מסורתיים</div>
+        <div class="menu-item-desc">Moscow Mule, Black Russian ועוד קלאסיקות מבשר הביסאדה</div>
+        <div class="menu-item-price">₪52</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-name">קפה ותה</div>
+        <div class="menu-item-desc">אספרסו, קפה שחור ותה עם ריבה — כדרך הרוסים</div>
+        <div class="menu-item-price">₪18</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-name">ארוחות לילה</div>
+        <div class="menu-item-desc">מנות מיוחדות לשעות הלילה המאוחרות, עם ליווי בר מלא</div>
+        <div class="menu-item-price">ראו תפריט לילה</div>
+      </div>
+    </div>
+
+    <div id="desserts" class="menu-grid" style="display:none">
+      <div class="menu-item">
+        <div class="menu-item-name">עוגת מדוביק</div>
+        <div class="menu-item-desc">עוגת דבש שכבתית עם קרם שמנת חמוצה — קינוח מסורתי רוסי</div>
+        <div class="menu-item-price">₪42</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-name">בלינצ׳ס עם ריבה</div>
+        <div class="menu-item-desc">פנקייק רוסי דק עם ריבת תות ביתית ושמנת</div>
+        <div class="menu-item-price">₪38</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-name">גלידת פלומביר</div>
+        <div class="menu-item-desc">גלידת שמנת עשירה בסגנון סובייטי קלאסי</div>
+        <div class="menu-item-price">₪34</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <div class="section-inner">
+    <div class="fade-in">
+      <p class="section-label">החוויה שלנו</p>
+      <h2 class="section-title">ערב שלא <em>שוכחים</em></h2>
+    </div>
+    <div class="exp-grid">
+      <div class="exp-card fade-in">
+        <span class="exp-icon">🎵</span>
+        <h3 class="exp-title">מוסיקה חיה</h3>
+        <p class="exp-desc">אווירה מוסיקלית שמלווה את הערב — מרוסי קלאסי ועד מנגינות נוסטלגיות שעושות חשק לעוד כוסית.</p>
+      </div>
+      <div class="exp-card fade-in">
+        <span class="exp-icon">🥂</span>
+        <h3 class="exp-title">בר מלא</h3>
+        <p class="exp-desc">וודקה, בירה, יין ומשקאות חריפים מובחרים. הדרך הנכונה לחוות את המטבח הרוסי היא עם הכוס הנכונה.</p>
+      </div>
+      <div class="exp-card fade-in">
+        <span class="exp-icon">🍽</span>
+        <h3 class="exp-title">שירות ממוקד</h3>
+        <p class="exp-desc">מהרגע שתשבו — סלטים ונשנושים על השולחן. מנות שמגיעות מהירות, טריות וטעימות.</p>
+      </div>
+      <div class="exp-card fade-in">
+        <span class="exp-icon">♿</span>
+        <h3 class="exp-title">נגישות מלאה</h3>
+        <p class="exp-desc">כניסה נגישה לכיסאות גלגלים, חניה נגישה ומקומות ישיבה מתאימים לכל מבקר.</p>
+      </div>
+      <div class="exp-card fade-in">
+        <span class="exp-icon">👨‍👩‍👧</span>
+        <h3 class="exp-title">מתאים לכולם</h3>
+        <p class="exp-desc">מתאים לילדים, לזוגות, לחברים ולקבוצות. חניה חינם בשפע — אין תירוצים לא לבוא.</p>
+      </div>
+      <div class="exp-card fade-in">
+        <span class="exp-icon">📅</span>
+        <h3 class="exp-title">הזמנה מראש</h3>
+        <p class="exp-desc">מומלץ להזמין מקום מראש, במיוחד לארוחת ערב. אנחנו שומרים לכם את השולחן הטוב ביותר.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+  <div class="section-inner">
+    <div class="fade-in">
+      <p class="section-label">מה אומרים עלינו</p>
+      <h2 class="section-title">קולות <em>האורחים</em></h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card fade-in">
+        <div class="review-quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">מסעדה מאוד יפה וטעימה. מנות שמגיעות מהמטבח במהירות, סלטים ונשנושים עוד מרגע הישיבה.</p>
+        <div class="review-author"><strong>Arthur Peisahovich</strong> · ממליץ מקומי</div>
+      </div>
+      <div class="review-card fade-in">
+        <div class="review-quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">אוכל רוסי אותנטי מצוין, עשוי היטב, טרי וטעים — כמו ארוחה ביתית טובה.</p>
+        <div class="review-author"><strong>Nissan Chesler</strong> · 345 ביקורות</div>
+      </div>
+      <div class="review-card fade-in">
+        <div class="review-quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">באנו לנופש, אכלנו, שתינו, נהנינו. מוסיקה טובה, אווירה טובה. ממליצים בחום.</p>
+        <div class="review-author"><strong>Dvorah Shushan</strong></div>
+      </div>
+      <div class="review-card fade-in">
+        <div class="review-quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">מסעדה רוסית–סובייטית קלאסית. לכו עם וודקה וסלטים קרים, ואז עיקרית. חמוצים, דרוני ושישליק חזיר — חוויה מלאה עם קצת נוסטלגיה.</p>
+        <div class="review-author"><strong>Alexei Pirogovski</strong> · 21 ביקורות</div>
+      </div>
+      <div class="review-card fade-in">
+        <div class="review-quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">מדהים.</p>
+        <div class="review-author"><strong>גל-ים ברכות שחיה</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INFO -->
+<section class="info" id="info">
+  <div class="section-inner">
+    <div class="fade-in">
+      <p class="section-label">מידע שימושי</p>
+      <h2 class="section-title">כל מה שצריך <em>לדעת</em></h2>
+    </div>
+    <div class="info-grid fade-in">
+      <div class="info-col">
+        <h3>שעות פעילות</h3>
+        <ul>
+          <li>ארוחת צהריים: 12:00–16:00</li>
+          <li>ארוחת ערב: 18:00–24:00</li>
+          <li>ארוחות לילה: עד שעה מאוחרת</li>
+          <li>איסוף עצמי: בשעות הפעילות</li>
+        </ul>
+      </div>
+      <div class="info-col">
+        <h3>נגישות וחניה</h3>
+        <ul>
+          <li>כניסה נגישה לכיסאות גלגלים</li>
+          <li>מקומות ישיבה נגישים</li>
+          <li>חניה נגישה ללא תשלום</li>
+          <li>מגרש חניה חינם בשפע</li>
+        </ul>
+      </div>
+      <div class="info-col">
+        <h3>תשלום ומדיניות</h3>
+        <ul>
+          <li>כרטיסי אשראי וחיוב</li>
+          <li>תשלום NFC (Apple/Google Pay)</li>
+          <li>מומלץ להזמין מקום לערב</li>
+          <li>מתאים לקבוצות וילדים</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATION -->
+<section class="reservation" id="reservation">
+  <div class="section-inner" style="position:relative">
+    <p class="section-label fade-in">הזמינו שולחן</p>
+    <h2 class="section-title fade-in">נשמור לכם<br><em>את המקום הטוב</em></h2>
+    <p class="fade-in">אנחנו מחכים לכם. הזמינו מקום ואנחנו נדאג לשאר.</p>
+    <div class="res-form fade-in">
+      <input type="text" placeholder="שם מלא" />
+      <input type="tel" placeholder="טלפון" />
+      <input type="date" />
+      <select>
+        <option value="">שעה</option>
+        <option>12:00</option><option>13:00</option><option>14:00</option>
+        <option>18:00</option><option>19:00</option><option>20:00</option>
+        <option>21:00</option><option>22:00</option>
+      </select>
+      <select>
+        <option value="">מספר סועדים</option>
+        <option>1–2</option><option>3–4</option><option>5–6</option><option>7+</option>
+      </select>
+      <button class="btn btn-primary" onclick="handleReservation()">אשרו הזמנה</button>
+    </div>
+    <p style="margin-top:2rem;font-size:0.8rem;color:var(--cream-muted)">
+      או התקשרו אלינו ישירות לתיאום
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">נכון לעכשיו ✦</div>
+  <div class="footer-copy">© 2024 נכון לעכשיו · מסעדה רוסית אותנטית</div>
+</footer>
+
+<script>
+function showTab(btn, id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  ['starters','mains','drinks','desserts'].forEach(s => {
+    const el = document.getElementById(s);
+    if (el) el.style.display = s === id ? 'grid' : 'none';
+  });
+}
+
+function handleReservation() {
+  alert('תודה! ניצור איתכם קשר לאישור ההזמנה בקרוב.');
+}
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
